@@ -1,0 +1,23 @@
+suppression : 
+
+ceoDesc -> appDescription
+ceoKeywords -> appKeywords
+
+password_min_length -> passwordMinLength
+password_max_length -> passwordMaxLength
+password_complexity -> passwordComplexity
+admin_folder -> adminFolder
+feature_user_allow_admin_create -> featureUserAllowAdminCreate
+feature_register -> featureRegister
+
+
+add :
+
+mailHost
+mailPort
+mailTls
+mailSsl
+mailUser
+mailPass
+mailFrom
+mailContactDest

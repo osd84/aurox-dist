@@ -1,0 +1,4 @@
+Sujet : Changement de BaseModel::table en const BaseModel::TABLE
+
+
+Rechercher les usages de $table, modifier par TABLE

@@ -1,0 +1,22 @@
+# Activer le moteur de réécriture si nécessaire (utile pour redirections)
+RewriteEngine On
+
+# Interdire tout accès direct aux fichiers système ou sensibles
+<FilesMatch "^\.(env|htaccess|gitignore|composer\.(json|lock)|config\.php)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Interdire l'accès à des fichiers spécifiques (par exemple, log, blacklist)
+<Files "blacklist__.php">
+    Order Allow,Deny
+    Deny from all
+</Files>
+<Files "banlog__.php">
+    Order Allow,Deny
+    Deny from all
+</Files>
+<Files "creds.php">
+    Order Allow,Deny
+    Deny from all
+</Files>

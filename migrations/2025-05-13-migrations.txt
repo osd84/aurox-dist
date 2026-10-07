@@ -1,0 +1,12 @@
+Sujet : Amélioration du ban system
+
+conf.php
+-> add
+    'ban_file_path' => '/chemin/vers/to_ban.txt',
+
+
+-> /root
+
+Ajouter le script et la cron : ban_from_list.php
+
+Le ban systeme va injecter les ip à bannir dans /chemin/vers/to_ban.txt

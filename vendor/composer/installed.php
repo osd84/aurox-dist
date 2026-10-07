@@ -1,0 +1,41 @@
+<?php return array(
+    'root' => array(
+        'name' => 'osd84/aurox',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '4cd810c8084f001b1175ea994adfd6181e6acbe4',
+        'type' => 'library',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'dev' => true,
+    ),
+    'versions' => array(
+        'osd84/aurox' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '4cd810c8084f001b1175ea994adfd6181e6acbe4',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'osd84/brutaltestrunner' => array(
+            'pretty_version' => '3.0.1',
+            'version' => '3.0.1.0',
+            'reference' => 'f04d52431140f4be6b58528f743ec18ff477da0a',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../osd84/brutaltestrunner',
+            'aliases' => array(),
+            'dev_requirement' => true,
+        ),
+        'osd84/phpmailer' => array(
+            'pretty_version' => '6.10',
+            'version' => '6.10.0.0',
+            'reference' => '0ff2d3c8ead628df2493537d9f91db962aa47718',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../osd84/phpmailer',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+    ),
+);

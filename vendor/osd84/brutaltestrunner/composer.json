@@ -1,0 +1,17 @@
+{
+  "name": "osd84/brutaltestrunner",
+  "description": "Minimalist PHP test runner Brutal dev design",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "osd84"
+    }
+  ],
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "osd84\\BrutalTestRunner\\": "src/"
+    }
+  }
+}

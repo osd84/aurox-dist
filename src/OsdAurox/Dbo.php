@@ -161,11 +161,17 @@ class Dbo
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             PDO::ATTR_EMULATE_PREPARES => false,
         ];
-        // Les constantes PDO::MYSQL_ATTR_* ne sont définies que si pdo_mysql est chargé,
+        // Les constantes MySQL ne sont définies que si pdo_mysql est chargé,
         // on ne les touche donc que sur le driver mysql. En pgsql le SSL est déjà dans le DSN.
+        // PHP 8.4 introduit Pdo\Mysql::ATTR_*, PHP 8.5 déprécie PDO::MYSQL_ATTR_*.
         if($this->ssl && $this->driver === self::DRIVER_MYSQL) {
-            $options[PDO::MYSQL_ATTR_SSL_CA] = APP_ROOT . $this->sslCert;
-            $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = true;
+            if (PHP_VERSION_ID >= 80400) {
+                $options[\Pdo\Mysql::ATTR_SSL_CA] = APP_ROOT . $this->sslCert;
+                $options[\Pdo\Mysql::ATTR_SSL_VERIFY_SERVER_CERT] = true;
+            } else {
+                $options[PDO::MYSQL_ATTR_SSL_CA] = APP_ROOT . $this->sslCert;
+                $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = true;
+            }
         }
 
 

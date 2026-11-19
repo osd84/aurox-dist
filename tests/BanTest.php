@@ -95,6 +95,29 @@ $tester->assertEqual(true, $r, 'bannie par black list');
 $r = Ban::unBan($_SERVER['REMOTE_ADDR']);
 $tester->assertEqual(true, $r, 'unban ok');
 
-
+// maskSecrets : les mots de passe et jetons ne partent pas sur Discord, la charge reste visible
+$r = Ban::maskSecrets([
+    'email' => 'a@b.fr',
+    'password' => "secret' OR 1=1",
+    'new_pass' => 'x',
+    'mdp_confirm' => 'x',
+    'pwd' => 'x',
+    'token' => 'abc',
+    '_csrf' => 'abc',
+    'otp_code' => '123456',
+    'name' => "'; DROP TABLE users; --",
+]);
+$tester->assertEqual('a@b.fr', $r['email'], 'maskSecrets garde email');
+$tester->assertEqual('***', $r['password'], 'maskSecrets masque password');
+$tester->assertEqual('***', $r['new_pass'], 'maskSecrets masque new_pass');
+$tester->assertEqual('***', $r['mdp_confirm'], 'maskSecrets masque mdp_confirm');
+$tester->assertEqual('***', $r['pwd'], 'maskSecrets masque pwd');
+$tester->assertEqual('***', $r['token'], 'maskSecrets masque token');
+$tester->assertEqual('***', $r['_csrf'], 'maskSecrets masque _csrf');
+$tester->assertEqual('***', $r['otp_code'], 'maskSecrets masque otp_code');
+$tester->assertEqual("'; DROP TABLE users; --", $r['name'], 'maskSecrets garde la charge');
+$r = Ban::maskSecrets([0 => 'x', 'PASSWORD' => 'x']);
+$tester->assertEqual('x', $r[0], 'maskSecrets cle numerique');
+$tester->assertEqual('***', $r['PASSWORD'], 'maskSecrets insensible a la casse');
 
 $tester->footer(exit: false);

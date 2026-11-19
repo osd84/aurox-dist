@@ -485,9 +485,26 @@ class Ban
         $appName = AppConfig::get('appName') ?: 'UnknownAppName';
         $url = AppConfig::get('appUrl') ?: 'UnknownAppUrl';
         Discord::send('[BAN] Hack attempt detected on ' . Sec::hNoHtml($appName) . ' ' . Sec::hNoHtml($url) . ' by ' . Sec::hNoHtml(Sec::getRealIpAddr()) . ' ' . $currentPath);
-        Discord::send(json_encode($_POST));
-        Discord::send(json_encode($_GET));
+        // la charge reste visible, sauf dans les champs de mot de passe ou de jeton
+        // coupée à 1900 caractères : Discord refuse un message de plus de 2000
+        Discord::send(mb_substr(json_encode(self::maskSecrets($_POST)), 0, 1900));
+        Discord::send(mb_substr(json_encode(self::maskSecrets($_GET)), 0, 1900));
         return true;
+    }
+
+    /**
+     * Remplace par '***' la valeur des champs dont le nom ressemble à un secret
+     * (mot de passe, jeton, OTP, CSRF), avant envoi sur Discord.
+     * Le filtre porte sur le nom du champ : un secret dans un champ au nom anodin passe en clair.
+     */
+    public static function maskSecrets(array $params): array
+    {
+        foreach ($params as $key => $value) {
+            if (preg_match('~pass|pwd|mdp|token|secret|otp|csrf~i', (string) $key)) {
+                $params[$key] = '***';
+            }
+        }
+        return $params;
     }
 
     public static function banIfHackAttempt(): bool
